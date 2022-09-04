@@ -7,4 +7,4 @@ A 3-tier environment is a common setup. Use a tool of your choosing/familiarity 
 > Go to Kubernetes folder
 > Create frontend deployment and service
 > Create Backend deployment and service 
-> Apply ingress.yaml
+> Apply ingress.yaml.
