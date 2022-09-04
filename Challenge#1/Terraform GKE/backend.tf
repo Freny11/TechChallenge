@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket      = "terraform-data-discovery-env"
+    bucket      = "terraform-env"
     prefix      = "terraform/state"
     credentials = "dmp-devops-terraform.json"
   }

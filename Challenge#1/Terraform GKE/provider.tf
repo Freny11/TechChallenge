@@ -3,7 +3,7 @@ provider "google" {
   region  = var.project_region
   zone    = var.project_zone
   //  version     = "3.56.0"
-  credentials = file("dmp-devops-terraform.json")
+  credentials = file("key.json")
   scopes = [
     "https://www.googleapis.com/auth/cloud-platform",
     "https://www.googleapis.com/auth/userinfo.email",
