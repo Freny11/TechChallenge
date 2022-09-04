@@ -35,6 +35,3 @@ resource "google_sql_database" "database" {
   }
 }
 
-#   project  = var.project_id
-#   instance = google_sql_database_instance.postgres_prod.0.name
-# }
