@@ -33,11 +33,6 @@ module "gke" {
   gke_cluster_new_node_pool_machine_tpe = "n1-standard-8"
   gke_cluster_new_node_pool_min_count   = 2
   gke_cluster_new_node_pool_max_count   = 6
-  namespaces = [
-    "data-discovery",
-    "nginx"
-  ]
-
   depends_on = [
     module.gcp_vpc
   ]
