@@ -14,16 +14,6 @@ resource "google_container_cluster" "primary" {
     channel = "UNSPECIFIED"
   }
 
-  master_auth {
-    client_certificate_config {
-      issue_client_certificate = true
-    }
-  }
-  workload_identity_config {
-    workload_pool = "${var.project_id}.svc.id.goog"
-  }
-}
-
 resource "google_container_node_pool" "new_application_pool" {
   name     = var.gke_cluster_new_node_pool_name
   project  = var.project_id
@@ -95,28 +85,4 @@ resource "helm_release" "nginx_ingress" {
     value = false
   }
 
-}
-
-resource "null_resource" "ingress-named-ports-https" {
-  provisioner "local-exec" {
-    command = <<EOT
-           for i in ${join(" ", google_container_node_pool.new_application_pool.instance_group_urls)}
-           do
-               gcloud --project ${var.project_id} compute instance-groups set-named-ports $(gcloud --project ${var.project_id} compute instance-groups managed list --format json | jq -r '.[] | select(.selfLink == "'$i'") | .instanceGroup') --named-ports=nginx-ingress-https:32443,istio-ad-ingress-gateway:31570
-           done
-       EOT
-  }
-  depends_on = [
-  helm_release.nginx_ingress]
-}
-
-resource "kubernetes_namespace" "istio_namespace" {
-  for_each = var.istio ? var.namespaces : []
-  metadata {
-    name = each.value
-    labels = {
-      istio-injection = "enabled"
-    }
-  }
-  depends_on = [google_container_cluster.primary]
 }
