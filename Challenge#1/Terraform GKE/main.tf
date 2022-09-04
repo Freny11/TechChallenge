@@ -1,7 +1,7 @@
 module "monitoring_service_account" {
   source       = "./modules/service-account"
-  account_id   = "data-discovery-cluster-service"
-  display_name = "data-discovery-cluster-service"
+  account_id   = "c1-cluster-service"
+  display_name = "c1-cluster-service"
   description  = "service account used by Application monitoring stack"
   project_id   = var.project_id
 }
@@ -25,7 +25,7 @@ module "gke" {
   gke_cluster_network_name = module.gcp_vpc.vpc_name
   gke_cluster_subnetwork   = module.gcp_vpc.vpc_subnet_name
   # New Application node pool spec
-  gke_cluster_new_node_pool_name        = "data-discovery-pool"
+  gke_cluster_new_node_pool_name        = "challenge1-pool"
   preemptible                           = var.preemptible
   gke_cluster_new_node_pool_scopes      = ["https://www.googleapis.com/auth/cloud-platform"]
   gke_cluster_new_node_pool_size        = 2
